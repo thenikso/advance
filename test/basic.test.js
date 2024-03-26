@@ -20,4 +20,6 @@ describe('basic', (assert) => {
     }`,
     ['Max: 21', 'Min: 4', 'Avg: 11', '---------', 'Sum: 44'],
   );
+
+  assertLogs(`x: "hello" y: "word" print x`, ['hello']);
 });
