@@ -10,5 +10,5 @@ export function rye(strings, ...values) {
       code += values[i];
     }
   }
-  return defaultContext.run(code);
+  return defaultContext.eval(code);
 }

@@ -17,9 +17,16 @@ export function testUtils(context, assert, defaultOptions) {
   const { showTime: defaultShowTime = false } = defaultOptions ?? {};
 
   const createContext = () => {
-    const ctx = context.createChild();
-    ctx.fn('print', (s) => currentLogs.push(s));
-    ctx.fn('printv', (v, s) => currentLogs.push(s.replace('{}', v)));
+    const ctx = Object.create(context, {
+      print: {
+        value: (s) => currentLogs.push(s),
+        writable: false,
+      },
+      printv: {
+        value: (v, s) => currentLogs.push(s.replace('{}', v)),
+        writable: false,
+      },
+    });
     return ctx;
   };
 
@@ -30,7 +37,7 @@ export function testUtils(context, assert, defaultOptions) {
       assert({
         given: `\`${code}\``,
         should: `return ${typeof ret === 'string' ? `"${ret}"` : ret}`,
-        actual: (currentContext || createContext()).run(code),
+        actual: (currentContext || createContext()).eval(code),
         expected: ret,
       });
       if (showTime) {
@@ -48,7 +55,7 @@ export function testUtils(context, assert, defaultOptions) {
           let res;
           let err;
           try {
-            res = (currentContext || createContext()).run(code);
+            res = (currentContext || createContext()).eval(code);
           } catch (e) {
             err = e;
           }
@@ -84,7 +91,7 @@ export function testUtils(context, assert, defaultOptions) {
         should: `log ${logs.map((l) => `"${l}"`).join(', ')}`,
         actual: (() => {
           currentLogs = [];
-          (currentContext ?? createContext()).run(code);
+          (currentContext ?? createContext()).eval(code);
           return mapLogs ? mapLogs(currentLogs) : currentLogs;
         })(),
         expected: logs,

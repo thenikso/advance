@@ -3,7 +3,7 @@ import { defaultContext } from '../lib/index.js';
 
 describe('basic', (assert) => {
   const { assertReturn, assertLogs } = testUtils(defaultContext, assert, {
-    showTime: true,
+    showTime: false,
   });
 
   assertLogs('print "Hello, World!"', ['Hello, World!']);
