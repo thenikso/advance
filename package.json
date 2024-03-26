@@ -1,0 +1,38 @@
+{
+  "name": "@nikso/rye",
+  "version": "0.0.1",
+  "description": "An implementation of the Rye programming language in JavaScript",
+  "main": "dist/rye.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "serve",
+    "test": "node test/index.js",
+    "build": "vite build",
+    "prepublish": "pnpm run build"
+  },
+  "exports": {
+    ".": [
+      {
+        "import": "./index.mjs",
+        "require": "./dist/tye.cjs",
+        "types": "./index.d.ts"
+      },
+      "./dist/tye.cjs"
+    ]
+  },
+  "keywords": [
+    "rye",
+    "lang",
+    "language"
+  ],
+  "author": "Nicola Peduzzi <thenikso@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "ohm-js": "^17.1.0",
+    "serve": "^14.2.1",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.6"
+  }
+}
