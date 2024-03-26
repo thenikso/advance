@@ -19,6 +19,7 @@ export function testUtils(context, assert, defaultOptions) {
   const createContext = () => {
     const ctx = context.createChild();
     ctx.fn('print', (s) => currentLogs.push(s));
+    ctx.fn('printv', (v, s) => currentLogs.push(s.replace('{}', v)));
     return ctx;
   };
 

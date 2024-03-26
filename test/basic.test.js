@@ -8,6 +8,8 @@ describe('basic', (assert) => {
 
   assertLogs('print "Hello, World!"', ['Hello, World!']);
 
+  assertLogs('print 10 .inc', [11]);
+
   assertLogs(
     `{ 7 4 12 21 } .with {
       .max .printv "Max: {}" ,
@@ -16,6 +18,6 @@ describe('basic', (assert) => {
       print "---------" ,
       .sum .printv "Sum: {}"
     }`,
-    [],
+    ['Max: 21', 'Min: 4', 'Avg: 11', '---------', 'Sum: 44'],
   );
 });
