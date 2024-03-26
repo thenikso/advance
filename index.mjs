@@ -1,15 +1,14 @@
 // @ts-check
 
-import { parse } from './lib/parser.js';
+import { defaultContext } from './lib/index.js';
 
-const code = `{ 7 4 12 21 } .with {
-  .max .printv "Max: {}" ,
-  .min .printv "Min: {}" ,
-  .avg .printv "Avg: {}" ,
-  print "---------" ,
-  .sum .printv "Sum: {}"
-}`;
-
-const ast = parse(code);
-
-console.log(ast);
+export function rye(strings, ...values) {
+  let code = '';
+  for (let i = 0; i < strings.length; i++) {
+    code += strings[i];
+    if (i < values.length) {
+      code += values[i];
+    }
+  }
+  return defaultContext.run(code);
+}

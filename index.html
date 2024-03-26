@@ -5,6 +5,11 @@
     <title>Rye in Javascript</title>
   </head>
   <body>
-    <script type="module" src="./index.mjs"></script>
+    <script type="module" src="./test/index.js"></script>
+    <script type="module">
+      import { rye } from './index.mjs';
+
+      window.rye = rye;
+    </script>
   </body>
 </html>
