@@ -1,56 +1,15 @@
 // @ts-check
 
-import { grammar } from './dist/ohm.js';
+import { parse } from './lib/parser.js';
 
-/** @type {import('ohm-js').Grammar} */
-const ryeGrammar = grammar(String.raw`Rye {
-  program
-    = line*
+const code = `{ 7 4 12 21 } .with {
+  .max .printv "Max: {}" ,
+  .min .printv "Min: {}" ,
+  .avg .printv "Avg: {}" ,
+  print "---------" ,
+  .sum .printv "Sum: {}"
+}`;
 
-  value
-    = number | string | word | block
+const ast = parse(code);
 
-  block
-    = "{" space+ line* (expression space+)? "}"
-
-  line
-    = expression whitespace+ (comma whitespace*)? comment -- comment
-    | expression whitespace* terminator  -- newline
-
-
-  expression
-    = space* nonemptyListOf<value, whitespace+>
-
-  terminator
-    = "\n" | comma | end
-
-  comma
-    = "," space+
-
-  wrd
-    = (~(":" | "[" | "]" | "{" | "}" | "\"" | "," | ";" | space) any)+
-
-  word
-    = "|" wrd -- pipe
-    | "." wrd -- op
-    | "?" wrd -- get
-    | ":" wrd -- lset
-    | wrd ":" -- set
-    | "'" wrd -- lit
-    | wrd     -- normal
-
-  string
-  	= "\"" ("\\\"" | ~"\"" any)* "\""
-    | "\"\"\"" (~"\"\"\"" any)* "\"\"\""
-
-  whitespace
-  	= ~"\n" space
-
-  comment
-    = ";" (~"\n" any)* ("\n" | end)
-
-  number
-    = "0" caseInsensitive<"x"> (digit | "a".."f" | "A".."F")+ -- hex
-    | digit* "." digit+ ("e" "-"? digit+)?                    -- exp
-    | digit+                                                  -- dec
-}`);
+console.log(ast);
