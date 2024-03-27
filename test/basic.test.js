@@ -53,4 +53,11 @@ describe('basic', (assert) => {
   assertLogs(`2 :two switch 2 { 1 { print "one" } two { print "two" } }`, [
     'two',
   ]);
+
+  assertReturn(
+    `{ "age1" 1234 name1: "Jimbo" }
+      |dict
+      |validate { name: optional "JoeDoe" string } |_-> "name"`,
+    'JoeDoe',
+  );
 });

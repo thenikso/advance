@@ -5,5 +5,7 @@ An experiment in writing a [Rye lang](https://ryelang.org/) interpreter in JavaS
 ## TODOs
 
 - [x] operators
+- [x] validators
+- [ ] add priority to operators?
 - [ ] cpath
 - [ ] pipe -> <-
