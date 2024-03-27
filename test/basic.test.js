@@ -41,4 +41,8 @@ describe('basic', (assert) => {
   assertLogs(`if 10 < 20 { print "Hello" }`, ['Hello']);
 
   assertLogs(`either 0 { print "hello" } { print "yello" }`, ['yello']);
+
+  assertLogs(`switch 2 { 1 { print "one" } 2 { print "two" } }`, ['two']);
+
+  assertLogs(`2 :two switch 2 { 1 { print "one" } two { print "two" } }`, ['two']);
 });
