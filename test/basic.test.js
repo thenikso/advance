@@ -33,4 +33,6 @@ describe('basic', (assert) => {
     word .replace* str "****" |print`,
     ['did snake eat the ****?'],
   );
+
+  assertReturn(`12 + 21 :apples + 100 :fruits`, 133);
 });
