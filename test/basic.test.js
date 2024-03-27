@@ -38,11 +38,19 @@ describe('basic', (assert) => {
 
   assertLogs(`loop 3 { :i , print i } `, ['1', '2', '3']).andReturn(3);
 
+  assertLogs(
+    `names: { "Jim" "Jane" "Anne" }
+    for names { :name , print "Hi " + name }`,
+    ['Hi Jim', 'Hi Jane', 'Hi Anne'],
+  );
+
   assertLogs(`if 10 < 20 { print "Hello" }`, ['Hello']);
 
   assertLogs(`either 0 { print "hello" } { print "yello" }`, ['yello']);
 
   assertLogs(`switch 2 { 1 { print "one" } 2 { print "two" } }`, ['two']);
 
-  assertLogs(`2 :two switch 2 { 1 { print "one" } two { print "two" } }`, ['two']);
+  assertLogs(`2 :two switch 2 { 1 { print "one" } two { print "two" } }`, [
+    'two',
+  ]);
 });
