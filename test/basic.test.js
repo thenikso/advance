@@ -26,4 +26,11 @@ describe('basic', (assert) => {
   assertLogs(`inc 4 :x print x`, ['5']).andReturn(5);
 
   assertLogs(`inc 14 .print |print`, ['14', '15']);
+
+  assertLogs(
+    `word: "apple"
+    str: "did snake eat the apple?"
+    word .replace* str "****" |print`,
+    ['did snake eat the ****?'],
+  );
 });
