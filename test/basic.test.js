@@ -58,7 +58,7 @@ describe('basic', (assert) => {
     `{ "age1" 1234 name1: "Jimbo" }
       |dict
       |validate { name: optional "JoeDoe" string }
-      |get "name"
+      |-> "name"
     `,
     'JoeDoe',
   );
@@ -83,4 +83,6 @@ describe('basic', (assert) => {
     me/intro`,
     ["I'm Jim"],
   );
+
+  assertReturn(`10 |- 3 |- 6`, 1);
 });

@@ -11,5 +11,5 @@ An experiment in writing a [Rye lang](https://ryelang.org/) interpreter in JavaS
 - [x] cpath (only in context?)
 - [ ] add priority to operators?
 - [ ] or parentesis?
-- [ ] pipe -> <-?
+- [x] pipe -> <-?
 - [ ] sistematic tests
