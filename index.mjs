@@ -1,6 +1,6 @@
 // @ts-check
 
-import { defaultContext } from './lib/index.js';
+import { createContext } from './lib/index.js';
 
 export function rye(strings, ...values) {
   let code = '';
@@ -10,5 +10,5 @@ export function rye(strings, ...values) {
       code += values[i];
     }
   }
-  return defaultContext.eval(code);
+  return createContext().eval(code);
 }

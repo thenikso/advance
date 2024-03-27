@@ -1,8 +1,8 @@
 import { describe, testUtils } from './runner/index.mjs';
-import { defaultContext } from '../lib/index.js';
+import { createContext } from '../lib/index.js';
 
 describe('basic', (assert) => {
-  const { assertReturn, assertLogs } = testUtils(defaultContext, assert, {
+  const { assertReturn, assertLogs } = testUtils(createContext(), assert, {
     showTime: false,
   });
 
