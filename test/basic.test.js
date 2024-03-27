@@ -35,4 +35,10 @@ describe('basic', (assert) => {
   );
 
   assertReturn(`12 + 21 :apples + 100 :fruits`, 133);
+
+  assertLogs(`loop 3 { :i , print i } `, ['1', '2', '3']).andReturn(3);
+
+  assertLogs(`if 10 < 20 { print "Hello" }`, ['Hello']);
+
+  assertLogs(`either 0 { print "hello" } { print "yello" }`, ['yello']);
 });
