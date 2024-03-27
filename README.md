@@ -6,6 +6,10 @@ An experiment in writing a [Rye lang](https://ryelang.org/) interpreter in JavaS
 
 - [x] operators
 - [x] validators
+- [x] fn / fnp / fnc
+- [x] context
+- [ ] cpath (only in context?)
 - [ ] add priority to operators?
-- [ ] cpath
-- [ ] pipe -> <-
+- [ ] or parentesis?
+- [ ] pipe -> <-?
+- [ ] sistematic tests

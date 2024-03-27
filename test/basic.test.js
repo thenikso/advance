@@ -62,4 +62,16 @@ describe('basic', (assert) => {
     `,
     'JoeDoe',
   );
+
+  assertLogs(
+    `say-hi: fn { name } { print join { "Hi " name } }
+    say-hi "Jim"`,
+    ['Hi Jim'],
+  );
+
+  assertLogs(
+    `say-hi: does { print "Hi!" }
+    say-hi`,
+    ['Hi!'],
+  );
 });
