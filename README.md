@@ -8,7 +8,7 @@ An experiment in writing a [Rye lang](https://ryelang.org/) interpreter in JavaS
 - [x] validators
 - [x] fn / fnp / fnc
 - [x] context
-- [ ] cpath (only in context?)
+- [x] cpath (only in context?)
 - [ ] add priority to operators?
 - [ ] or parentesis?
 - [ ] pipe -> <-?

@@ -74,4 +74,13 @@ describe('basic', (assert) => {
     say-hi`,
     ['Hi!'],
   );
+
+  assertLogs(
+    `me: context {
+      name: "Jim"
+      intro: closure { } { print join { "I'm " name } }
+    }
+    me/intro`,
+    ["I'm Jim"],
+  );
 });
