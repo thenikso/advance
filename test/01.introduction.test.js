@@ -17,6 +17,8 @@ describe('Introduction', async (assert) => {
   assertReturn(`1 2 3`, 3);
 
   /**
+   * # Values
+   *
    * Besides numbers, the language also supports other types of values.
    */
 
@@ -25,14 +27,31 @@ describe('Introduction', async (assert) => {
   // TODO Url, Email, File
 
   /**
+   * # Comments
+   *
+   * Comments are ignored by the parser and can be used to document the code.
+   * They start with the `;` character and go until the end of the line.
+   */
+
+  assertReturn(`; this is a comment`, undefined);
+
+  /**
    * # Words
    *
    * Another important value is the `word`. Words are used to reference
    * functions and variables.
+   *
+   * A `word` must start with a letter or an hash `#` character and can
+   * contain (almost) any other character except whitespaces after that.
+   *
+   *     word       ; this is a valid word
+   *     a-word     ; also valid
+   *     #+         ; this is the word for the + operator (infix, see later)
+   *     -not-valid ; this is not a valid word
    */
 
   assertError('word', 'word not found { (here) word }');
-  assertReturn(`'print`, Symbol.for('print'));
+  assertReturn(`'print ; we will see the meaning of ' later`, Symbol.for('print'));
 
   /**
    * If a `word` is associated with a value, that value is returned.
@@ -194,6 +213,13 @@ describe('Introduction', async (assert) => {
   assertLogs(`print do { 1 + 1 }`, ['2']);
 
   /**
+   * Other functions may use them as data. Like `join` that
+   * connects strings together.
+   */
+
+  assertReturn(`join { "Hello," " " "World!" }`, 'Hello, World!');
+
+  /**
    * Blocks can be saved and passed around to be executed later.
    */
 
@@ -205,7 +231,13 @@ describe('Introduction', async (assert) => {
    */
 
   assertReturn(`list { 1 1 + 1 inc 2 }`, [1, 2, 3]);
-  assertReturn(`dict { a: 1 b: 1 + 1 }`, new Map([['a', 1], ['b', 2]]));
+  assertReturn(
+    `dict { a: 1 b: 1 + 1 }`,
+    new Map([
+      ['a', 1],
+      ['b', 2],
+    ]),
+  );
 
   /**
    * ### Commas

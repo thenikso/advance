@@ -22,3 +22,7 @@ An experiment in writing a [Rye lang](https://ryelang.org/) interpreter in JavaS
 - [x] or parentesis? not for now
 - [x] pipe -> <-?
 - [ ] rename to advance? only advance?
+- [ ] pure blocks can be cached?
+- [ ] show value on hover for pure blocks? in an editor
+- [ ] autoresolve promises? `@promise` to not resolve?
+- [ ] fuse comment terminators together when parsing to eventually make docs
