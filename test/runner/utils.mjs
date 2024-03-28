@@ -44,15 +44,19 @@ export function testUtils(context, assert, defaultOptions) {
     assert({
       given: given ?? `\`${code}\``,
       should: `return ${typeof ret === 'string' ? `"${ret}"` : String(ret)}`,
-      actual: (currentContext || createContext())[evalWord](code),
-      expected: ret,
+      actual: (() => {
+        const value = (currentContext || createContext())[evalWord](code);
+        if (typeof ret === 'function') return ret(value);
+        return value;
+      })(),
+      expected: typeof ret === 'function' ? true : ret,
     });
     if (showTime) {
       const endTime = performance.now();
       console.log(`took ${endTime - startTime}ms`);
     }
     return {
-      andLog: (logs) =>
+      andLogs: (...logs) =>
         assertLogs(code, logs, { ...options, given: 'the above' }),
     };
   }

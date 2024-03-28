@@ -11,11 +11,12 @@ An experiment in writing a [Rye lang](https://ryelang.org/) interpreter in JavaS
 - [x] cpath (only in context?)
 - [x] list creation with [ ]
 - [ ] sistematic tests
+- [ ] cpath with word variations (like pipe, etc)
 - [ ] filter, reduce, fold, partition, group, seek
 - [x] chahge path character from / to .
 - [x] change standard char for sub words from \ to /
 - [ ] CLI
-- [ ] better errors
+- [x] better errors
 - [ ] signals
 - [x] add priority to operators? no we only advance
 - [x] or parentesis? not for now
