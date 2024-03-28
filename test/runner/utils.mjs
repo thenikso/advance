@@ -43,7 +43,7 @@ export function testUtils(context, assert, defaultOptions) {
     const startTime = showTime ? performance.now() : 0;
     assert({
       given: given ?? `\`${code}\``,
-      should: `return ${typeof ret === 'string' ? `"${ret}"` : ret}`,
+      should: `return ${typeof ret === 'string' ? `"${ret}"` : String(ret)}`,
       actual: (currentContext || createContext())[evalWord](code),
       expected: ret,
     });
