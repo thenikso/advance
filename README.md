@@ -17,7 +17,7 @@ An experiment in writing a [Rye lang](https://ryelang.org/) interpreter in JavaS
 - [ ] CLI
 - [ ] better errors
 - [ ] signals
-- [ ] add priority to operators?
-- [ ] or parentesis?
+- [x] add priority to operators? no we only advance
+- [x] or parentesis? not for now
 - [x] pipe -> <-?
 - [ ] rename to advance? only advance?
