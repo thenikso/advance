@@ -87,4 +87,6 @@ describe('basic', (assert) => {
   assertReturn(`10 |- 3 |- 6`, 1);
 
   assertReturn(`[ 1 + 1 3 ] -> 0`, 2);
+
+  assertReturn(`context { a: 5 } |-> 'a`, 5);
 });

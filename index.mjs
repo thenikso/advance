@@ -10,5 +10,5 @@ export function rye(strings, ...values) {
       code += values[i];
     }
   }
-  return createContext().eval(code);
+  return createContext()[Symbol.for('eval')](code);
 }

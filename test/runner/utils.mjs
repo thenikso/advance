@@ -10,6 +10,8 @@ export async function loadFile(filePath) {
   return fs.readFile(path.resolve(__dirname, '..', filePath), 'utf8');
 }
 
+const evalWord = Symbol.for('eval');
+
 export function testUtils(context, assert, defaultOptions) {
   let currentContext = null;
 
@@ -18,14 +20,14 @@ export function testUtils(context, assert, defaultOptions) {
 
   const createContext = () => {
     const ctx = Object.create(context, {
-      print: {
+      [Symbol.for('print')]: {
         value: (s) => {
           currentLogs.push(s?.toString?.() ?? s);
           return s;
         },
         writable: false,
       },
-      printv: {
+      [Symbol.for('printv')]: {
         value: (v, s) => {
           currentLogs.push(s.replace('{}', v));
           return v;
@@ -42,7 +44,7 @@ export function testUtils(context, assert, defaultOptions) {
     assert({
       given: given ?? `\`${code}\``,
       should: `return ${typeof ret === 'string' ? `"${ret}"` : ret}`,
-      actual: (currentContext || createContext()).eval(code),
+      actual: (currentContext || createContext())[evalWord](code),
       expected: ret,
     });
     if (showTime) {
@@ -65,7 +67,7 @@ export function testUtils(context, assert, defaultOptions) {
         let res;
         let err;
         try {
-          res = (currentContext || createContext()).eval(code);
+          res = (currentContext || createContext())[evalWord](code);
         } catch (e) {
           err = e;
         }
@@ -103,7 +105,7 @@ export function testUtils(context, assert, defaultOptions) {
       should: `log ${logs.map((l) => `"${l}"`).join(', ')}`,
       actual: (() => {
         currentLogs = [];
-        (currentContext ?? createContext()).eval(code);
+        (currentContext ?? createContext())[evalWord](code);
         return mapLogs ? mapLogs(currentLogs) : currentLogs;
       })(),
       expected: logs,
