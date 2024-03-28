@@ -26,6 +26,7 @@ An **experimental** language interpreter in Javascript, inspired by [Rye lang](h
 - [x] or parentesis? not for now
 - [x] pipe -> <-?
 - [x] rename to advance? only advance?
+- [ ] fn auto set pure flag if all blocks are pure
 - [ ] pure blocks can be cached?
 - [ ] show value on hover for pure blocks? in an editor
 - [ ] autoresolve promises? `@promise` to not resolve?
