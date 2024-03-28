@@ -12,8 +12,8 @@ An experiment in writing a [Rye lang](https://ryelang.org/) interpreter in JavaS
 - [x] list creation with [ ]
 - [ ] sistematic tests
 - [ ] filter, reduce, fold, partition, group, seek
-- [ ] chahge path character from / to .
-- [ ] change standard char for sub words from \ to /
+- [x] chahge path character from / to .
+- [x] change standard char for sub words from \ to /
 - [ ] CLI
 - [ ] better errors
 - [ ] signals

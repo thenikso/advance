@@ -80,7 +80,7 @@ describe('basic', (assert) => {
       name: "Jim"
       intro: closure { } { print join { "I'm " name } }
     }
-    me/intro`,
+    me.intro`,
     ["I'm Jim"],
   );
 
