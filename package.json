@@ -1,8 +1,8 @@
 {
-  "name": "@nikso/rye",
+  "name": "@nikso/advance",
   "version": "0.0.1",
-  "description": "An implementation of the Rye programming language in JavaScript",
-  "main": "dist/rye.js",
+  "description": "An implementation of the Advance programming language in JavaScript",
+  "main": "dist/advance.js",
   "module": "index.mjs",
   "types": "index.d.ts",
   "type": "module",
@@ -11,6 +11,9 @@
     "test": "node test/index.js",
     "build": "vite build",
     "prepublish": "pnpm run build"
+  },
+  "bin": {
+    "adv": "./cli.mjs"
   },
   "exports": {
     ".": [
@@ -34,5 +37,9 @@
     "serve": "^14.2.1",
     "typescript": "^5.4.3",
     "vite": "^5.2.6"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "minimist": "^1.2.8"
   }
 }

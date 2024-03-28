@@ -1,6 +1,6 @@
-# Ryescript
+# advance lang
 
-An experiment in writing a [Rye lang](https://ryelang.org/) interpreter in JavaScript.
+An **experimental** language interpreter in Javascript, inspired by [Rye lang](https://ryelang.org/).
 
 ## TODOs
 
@@ -11,18 +11,23 @@ An experiment in writing a [Rye lang](https://ryelang.org/) interpreter in JavaS
 - [x] cpath (only in context?)
 - [x] list creation with [ ]
 - [ ] sistematic tests
+  - [x] introduction
+  - [ ] functions
+  - [ ] collections
+  - [ ] ???
 - [ ] cpath with word variations (like pipe, etc)
 - [ ] filter, reduce, fold, partition, group, seek
 - [x] chahge path character from / to .
 - [x] change standard char for sub words from \ to /
-- [ ] CLI
+- [x] CLI
 - [x] better errors
 - [ ] signals
 - [x] add priority to operators? no we only advance
 - [x] or parentesis? not for now
 - [x] pipe -> <-?
-- [ ] rename to advance? only advance?
+- [x] rename to advance? only advance?
 - [ ] pure blocks can be cached?
 - [ ] show value on hover for pure blocks? in an editor
 - [ ] autoresolve promises? `@promise` to not resolve?
 - [ ] fuse comment terminators together when parsing to eventually make docs
+- [ ] types for type checking and documentation

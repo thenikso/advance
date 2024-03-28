@@ -16,7 +16,7 @@ export default {
     outDir: 'dist',
     lib: {
       entry: {
-        rye: 'index.mjs',
+        advance: 'index.mjs',
         ohm: 'node_modules/ohm-js/src/main.js',
       },
       formats: ['es', 'cjs'],
