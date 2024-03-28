@@ -30,5 +30,8 @@ export function adv(strings, ...values) {
       code += values[i];
     }
   }
-  return exec(code);
+  return run(parse(code), adv.context);
 }
+
+adv.context = createContext();
+adv.reset = () => (adv.context = createContext());

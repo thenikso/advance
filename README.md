@@ -18,6 +18,7 @@ An **experimental** language interpreter in Javascript, inspired by [Rye lang](h
 - [ ] cpath with word variations (like pipe, etc)
 - [ ] filter, reduce, fold, partition, group, seek
 - [x] chahge path character from / to .
+  - [ ] not sure about this...
 - [x] change standard char for sub words from \ to /
 - [x] CLI
 - [x] better errors
@@ -32,3 +33,5 @@ An **experimental** language interpreter in Javascript, inspired by [Rye lang](h
 - [ ] autoresolve promises? `@promise` to not resolve?
 - [ ] fuse comment terminators together when parsing to eventually make docs
 - [ ] types for type checking and documentation
+- [ ] special `?` to use to explore expressions. dumps info on the place it is used
+- [ ] `import` system for modules
