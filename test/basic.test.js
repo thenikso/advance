@@ -80,7 +80,7 @@ describe('basic', async (assert) => {
       name: "Jim"
       intro: closure { } { print join { "I'm " name } }
     }
-    me.intro`,
+    me/intro`,
     ["I'm Jim"],
   );
 
@@ -89,4 +89,10 @@ describe('basic', async (assert) => {
   assertReturn(`[ 1 + 1 3 ] .get 0`, 2);
 
   assertReturn(`context { a: 5 } |get 'a`, 5);
+
+  assertReturn(
+    `str: type { .string }
+    str/check "a"`,
+    true,
+  );
 });
