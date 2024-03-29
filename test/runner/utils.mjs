@@ -43,7 +43,7 @@ export function testUtils(context, assert, defaultOptions) {
     const startTime = showTime ? performance.now() : 0;
     assert({
       given: given ?? `\`${code}\``,
-      should: `return ${typeof ret === 'string' ? `"${ret}"` : String(ret)}`,
+      should: `return ${JSON.stringify(ret)}`,
       actual: (() => {
         const value = (currentContext || createContext())[evalWord](code);
         if (typeof ret === 'function') return ret(value);
@@ -106,7 +106,7 @@ export function testUtils(context, assert, defaultOptions) {
     const startTime = showTime ? performance.now() : 0;
     assert({
       given: given ?? `\`${code}\``,
-      should: `log ${logs.map((l) => `"${l}"`).join(', ')}`,
+      should: `log ${logs.map((l) => JSON.stringify(l)).join(', ')}`,
       actual: (() => {
         currentLogs = [];
         (currentContext ?? createContext())[evalWord](code);

@@ -92,7 +92,7 @@ describe('basic', async (assert) => {
 
   assertReturn(
     `str: type { .string }
-    str/check "a"`,
-    true,
+    [ str/check "a" str/check 1 ]`,
+    [true, false],
   );
 });
