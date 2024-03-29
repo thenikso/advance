@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-import nodeRepl from 'repl';
+import nodeRepl from 'node:repl';
+import { inspect } from 'node:util';
 import chalk from 'chalk';
 import minimist from 'minimist';
 import path from 'path';
@@ -21,6 +22,8 @@ switch (argv._[0]) {
     break;
 }
 
+const wordModifiers = ["'", '?', '|', '.'];
+
 function repl() {
   const replServer = nodeRepl.start({
     prompt: chalk.greenBright('⟩ '),
@@ -35,8 +38,22 @@ function repl() {
         callback(err);
       }
     },
+    writer: function (output) {
+      if (output instanceof Error) {
+        return chalk.redBright(
+          output.message.replace('(here)', chalk.bold('(here)')),
+        );
+      }
+      // TODO use a custom inspect function
+      return inspect(output, {
+        colors: true,
+        depth: null,
+      });
+    },
     completer: function (line) {
       const completions = [];
+      // TODO add completions for current context
+      // TODO add completions using types if available
       let ctx = replServer.context._advContext;
       while (ctx) {
         completions.push(
@@ -44,7 +61,10 @@ function repl() {
         );
         ctx = Object.getPrototypeOf(ctx);
       }
-      const word = line.substring(line.lastIndexOf(' ') + 1);
+      let word = line.substring(line.lastIndexOf(' ') + 1);
+      if (wordModifiers.includes(word[0])) {
+        word = word.substring(1);
+      }
       const hits = completions.filter((c) => c.startsWith(word));
       return [hits.length ? hits : completions, word];
     },
