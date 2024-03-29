@@ -61,6 +61,7 @@ function repl() {
         );
         ctx = Object.getPrototypeOf(ctx);
       }
+      completions.sort();
       let word = line.substring(line.lastIndexOf(' ') + 1);
       if (wordModifiers.includes(word[0])) {
         word = word.substring(1);
