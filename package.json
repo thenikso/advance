@@ -15,6 +15,9 @@
   "bin": {
     "adv": "./cli.mjs"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "exports": {
     ".": [
       {

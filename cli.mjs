@@ -8,6 +8,9 @@ import path from 'path';
 import fs from 'fs/promises';
 import * as advance from './index.mjs';
 
+const pkg = await fs.readFile('./package.json', 'utf-8').then(JSON.parse);
+console.log(`Advance v${pkg.version}, Node ${process.version}`);
+
 const argv = minimist(process.argv.slice(2), {
   '--': true,
 });
