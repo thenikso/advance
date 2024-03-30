@@ -1,7 +1,7 @@
 {
   "name": "@nikso/advance",
   "version": "0.0.1",
-  "description": "An implementation of the Advance programming language in JavaScript",
+  "description": "Advance programming language in JavaScript",
   "main": "dist/advance.js",
   "module": "index.mjs",
   "types": "index.d.ts",
@@ -28,13 +28,22 @@
       "./dist/tye.cjs"
     ]
   },
+  "license": "MIT",
+  "author": "Nicola Peduzzi <thenikso@gmail.com>",
   "keywords": [
     "rye",
+    "advance",
     "lang",
     "language"
   ],
-  "author": "Nicola Peduzzi <thenikso@gmail.com>",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thenikso/advance.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thenikso/advance/issues"
+  },
+  "homepage": "https://github.com/thenikso/advance#readme",
   "devDependencies": {
     "ohm-js": "^17.1.0",
     "serve": "^14.2.1",

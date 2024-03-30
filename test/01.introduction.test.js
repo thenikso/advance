@@ -111,6 +111,16 @@ describe('Introduction', async (assert) => {
   );
 
   /**
+   * Pipes and other words modifiers works also on operators.
+   * In fact the math operators preferences are not what you might expect.
+   * There are no parentheses to change the order of operations.
+   * Instead, you can use pipe words.
+   */
+
+  assertReturn(`2 + 3 * 2`, 8);
+  assertReturn(`2 + 3 |* 2`, 10);
+
+  /**
    * ### Op words
    *
    * Op words (or operators) are `word`s that are prefixed with the `.` character.
