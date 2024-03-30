@@ -1,0 +1,1 @@
+greet: fn { name } { "Hello " + name |print }
