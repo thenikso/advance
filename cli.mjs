@@ -30,9 +30,9 @@ function repl() {
     useColors: true,
     useGlobal: false,
     preview: true,
-    eval: function (cmd, replContext, filename, callback) {
+    eval: async function (cmd, replContext, filename, callback) {
       try {
-        const res = advance.exec(cmd, replContext._advContext);
+        const res = await advance.exec(cmd, replContext._advContext);
         callback(null, res);
       } catch (err) {
         callback(err);
