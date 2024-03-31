@@ -43,7 +43,10 @@ export function testUtils(context, assert, defaultOptions) {
     const startTime = showTime ? performance.now() : 0;
     assert({
       given: given ?? `\`${code}\``,
-      should: `return ${JSON.stringify(ret)}`,
+      should:
+        typeof ret === 'function'
+          ? `satisfy ${ret.toString()}`
+          : `return ${JSON.stringify(ret)}`,
       actual: (() => {
         const value = (currentContext || createContext())[evalWord](code);
         if (typeof ret === 'function') return ret(value);

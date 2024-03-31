@@ -250,9 +250,19 @@ describe('Introduction', async (assert) => {
   );
 
   /**
+   * ### Lists
+   *
+   * Lists have a special syntax that is more convenient than blocks.
+   * They are enclosed in square brackets `[ ]` and are equivalent to
+   * a block with the `list` function (i.e. `list { 1 2 3 }`).
+   */
+
+  assertReturn(`[ 1 1 + 1 inc 2 ]`, [1, 2, 3]);
+
+  /**
    * ### Commas
    *
-   * Commas can be used to separate values in a block.
+   * Commas can be used to separate values in a block or list.
    */
 
   assertReturn(`do { 1 , 2 , 3 }`, 3);
