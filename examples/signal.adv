@@ -1,4 +1,4 @@
-watch: fn { block } {
+my-watch: fn { block } {
   signals: { }
   context {
     update: fn { 'block } {
@@ -18,7 +18,7 @@ watch: fn { block } {
   }
 }
 
-signal: fn { val } {
+my-signal: fn { val } {
   watchers: { }
   onUpdate: fn { 'watchers } {
     for watchers { :w w }
@@ -41,8 +41,8 @@ signal: fn { val } {
   }
 }
 
-name: signal "stranger"
-watcher: watch { "Hello " + name/value |print }
+name: my-signal "stranger"
+watcher: my-watch { "Hello " + name/value |print }
 name/setValue "you"
 
 watcher/stop

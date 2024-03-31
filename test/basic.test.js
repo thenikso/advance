@@ -103,4 +103,15 @@ describe('basic', async (assert) => {
     var`,
     20,
   ).andLogs('10');
+
+  assertLogs(
+    `name: signal "stranger"
+    watcher: watch { "Hello " + name |print }
+    if is-signal ?name { print "a signal" }
+    name: "you"
+    watcher/stop
+    name: "no one"
+    `,
+    ['Hello stranger', 'a signal', 'Hello you'],
+  );
 });
