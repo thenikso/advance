@@ -78,7 +78,7 @@ describe('basic', async (assert) => {
   assertLogs(
     `me: context {
       name: "Jim"
-      intro: closure { } { print join { "I'm " name } }
+      intro: fn { 'name } { print join { "I'm " name } }
     }
     me/intro`,
     ["I'm Jim"],
@@ -95,4 +95,12 @@ describe('basic', async (assert) => {
     [ str/check "a" str/check 1 ]`,
     [true, false],
   );
+
+  assertReturn(
+    `var: 10
+    clo: fn { 'var } { print var , var: 20 }
+    clo
+    var`,
+    20,
+  ).andLogs('10');
 });

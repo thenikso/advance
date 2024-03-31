@@ -1,0 +1,49 @@
+watch: fn { block } {
+  signals: { }
+  context {
+    update: fn { 'block } {
+      do block
+    }
+    stop: fn { 'signals 'update } {
+      for signals { :s s ?update }
+      true
+    }
+    context {
+      watch-signal: fn { removeWatcher 'update 'signals } {
+        signals .insert { ?removeWatcher }
+        ?update
+      }
+      do block
+    }
+  }
+}
+
+signal: fn { val } {
+  watchers: { }
+  onUpdate: fn { 'watchers } {
+    for watchers { :w w }
+  }
+  removeWatcher: fn { w 'watchers } {
+    watchers .remove { ?w }
+  }
+  context {
+    value: fn { 'val 'watchers 'removeWatcher } {
+      if context-parent .has 'watch-signal {
+        watchers .insert { watch-signal ?removeWatcher }
+      }
+      val
+    }
+    setValue: fn { newValue 'val 'onUpdate } {
+      val: newValue
+      onUpdate
+      val
+    }
+  }
+}
+
+name: signal "stranger"
+watcher: watch { "Hello " + name/value |print }
+name/setValue "you"
+
+watcher/stop
+name/setValue "bye"
