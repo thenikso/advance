@@ -9,7 +9,9 @@ import fs from 'fs/promises';
 import * as advance from './index.mjs';
 
 const pkg = await fs.readFile('./package.json', 'utf-8').then(JSON.parse);
-console.log(`Advance v${pkg.version}, Node ${process.version}`);
+console.log(
+  `Welcome to Advance v${pkg.version}, Node ${process.version}.\nType ".help" for more information.`,
+);
 
 const argv = minimist(process.argv.slice(2), {
   '--': true,
@@ -26,8 +28,13 @@ switch (argv._[0]) {
 }
 
 const wordModifiers = ["'", '?', '|', '.'];
+const prompt = {
+  normal: chalk.greenBright('⟩ '),
+  multiline: '... ',
+};
 
 function repl() {
+  let multiline = '';
   const replServer = nodeRepl.start({
     prompt: chalk.greenBright('⟩ '),
     useColors: true,
@@ -35,10 +42,25 @@ function repl() {
     preview: true,
     eval: async function (cmd, replContext, filename, callback) {
       try {
-        const res = await advance.exec(cmd, replContext._advContext);
+        const res = await advance.exec(
+          multiline + cmd,
+          replContext._advContext,
+        );
+        if (multiline) {
+          multiline = '';
+          replServer.setPrompt(prompt.normal);
+        }
         callback(null, res);
       } catch (err) {
-        callback(err);
+        if (err.message.endsWith('Expected "}"')) {
+          multiline += cmd + '\n';
+          replServer.setPrompt(prompt.multiline);
+          callback(nodeRepl.Recoverable(err));
+        } else {
+          multiline = '';
+          replServer.setPrompt(prompt.normal);
+          callback(err);
+        }
       }
     },
     writer: function (output) {
