@@ -1,7 +1,7 @@
 import { describe, testUtils } from './runner/index.mjs';
 import { createContext } from '../lib/index.js';
 
-describe('Introduction', async (assert) => {
+describe('Functions', async (assert) => {
   const { assertReturn, assertLogs } = testUtils(
     createContext(),
     assert,

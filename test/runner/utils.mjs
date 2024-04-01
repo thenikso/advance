@@ -15,10 +15,9 @@ const evalWord = Symbol.for('eval');
 export function testUtils(context, assert, defaultOptions) {
   let currentContext = null;
 
-  let currentLogs = [];
   const { showTime: defaultShowTime = false } = defaultOptions ?? {};
 
-  const createContext = () => {
+  const createContext = (currentLogs = []) => {
     const ctx = Object.create(context, {
       [Symbol.for('print')]: {
         value: (s) => {
@@ -41,23 +40,38 @@ export function testUtils(context, assert, defaultOptions) {
   function assertReturn(code, ret, options) {
     const { showTime = defaultShowTime, given } = options ?? {};
     const startTime = showTime ? performance.now() : 0;
-    assert({
-      given: given ?? `\`${code}\``,
-      should:
-        typeof ret === 'function'
-          ? `satisfy ${ret.toString()}`
-          : `return ${JSON.stringify(ret)}`,
-      actual: (() => {
-        const value = (currentContext || createContext())[evalWord](code);
-        if (typeof ret === 'function') return ret(value);
-        return value;
-      })(),
-      expected: typeof ret === 'function' ? true : ret,
-    });
-    if (showTime) {
-      const endTime = performance.now();
-      console.log(`took ${endTime - startTime}ms`);
+    const step0 = (currentContext || createContext())[evalWord](code);
+    const step1 = (value) => {
+      if (typeof ret === 'function') return ret(value);
+      return value;
+    };
+    const step2 = (actual) => {
+      return assert({
+        given: given ?? `\`${code}\``,
+        should:
+          typeof ret === 'function'
+            ? `satisfy ${ret.toString()}`
+            : `return ${JSON.stringify(ret)}`,
+        actual,
+        expected: typeof ret === 'function' ? true : ret,
+      });
+    };
+    const step3 = () => {
+      if (showTime) {
+        const endTime = performance.now();
+        console.log(`took ${endTime - startTime}ms`);
+      }
+    };
+    if (step0 instanceof Promise) {
+      const promise = step0.then(step1).then(step2).then(step3);
+      promise.andLogs = (...logs) => {
+        return promise.then(() =>
+          assertLogs(code, logs, { ...options, given: 'the above' }),
+        );
+      };
+      return promise;
     }
+    step3(step2(step1(step0)));
     return {
       andLogs: (...logs) =>
         assertLogs(code, logs, { ...options, given: 'the above' }),
@@ -107,20 +121,37 @@ export function testUtils(context, assert, defaultOptions) {
     const { showTime = defaultShowTime, mapLogs, given } = options ?? {};
     logs = Array.isArray(logs) ? logs : [logs];
     const startTime = showTime ? performance.now() : 0;
-    assert({
-      given: given ?? `\`${code}\``,
-      should: `log ${logs.map((l) => JSON.stringify(l)).join(', ')}`,
-      actual: (() => {
-        currentLogs = [];
-        (currentContext ?? createContext())[evalWord](code);
-        return mapLogs ? mapLogs(currentLogs) : currentLogs;
-      })(),
-      expected: logs,
-    });
-    if (showTime) {
-      const endTime = performance.now();
-      console.log(`took ${endTime - startTime}ms`);
+    const currentLogs = [];
+    const step0 = (currentContext ?? createContext(currentLogs))[evalWord](
+      code,
+    );
+    const step1 = () => {
+      return mapLogs ? mapLogs(currentLogs) : currentLogs;
+    };
+    const step2 = (actual) => {
+      return assert({
+        given: given ?? `\`${code}\``,
+        should: `log ${logs.map((l) => JSON.stringify(l)).join(', ')}`,
+        actual,
+        expected: logs,
+      });
+    };
+    const step3 = () => {
+      if (showTime) {
+        const endTime = performance.now();
+        console.log(`took ${endTime - startTime}ms`);
+      }
+    };
+    if (step0 instanceof Promise) {
+      const promise = step0.then(step1).then(step2).then(step3);
+      promise.andReturn = (ret) => {
+        return promise.then(() =>
+          assertReturn(code, ret, { ...options, given: 'the above' }),
+        );
+      };
+      return promise;
     }
+    step3(step2(step1(step0)));
     return {
       andReturn: (ret) =>
         assertReturn(code, ret, { ...options, given: 'the above' }),
